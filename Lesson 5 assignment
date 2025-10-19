@@ -1,0 +1,79 @@
+import random
+
+def main():
+    grades = []
+
+    while True:
+        user_input = input("Please enter the grade or -1 to stop: ")
+        try:
+            grade = int(user_input)
+        except ValueError:
+            print("Please enter a whole number.")
+            continue
+
+        if grade == -1:
+            break
+        grades.append(grade)
+
+    print(grades)
+    print("Removing lowest grade")
+    if grades:
+        lowest = min(grades)
+        idx = grades.index(lowest)
+        grades.pop(idx)
+    print(grades)
+
+    print("Removing random grade")
+    if grades:
+        rand_val = random.choice(grades)
+        grades.remove(rand_val)
+    print(grades)
+
+    print("Edit a grade")
+    if grades:
+        for i, g in enumerate(grades, start=1):
+            print(f"{i}. {g}")
+
+        while True:
+            try:
+                choice = int(input("Which grade do you want to edit: "))
+            except ValueError:
+                print("Please enter a valid grade!")
+                continue
+
+            if 1 <= choice <= len(grades):
+                break
+            else:
+                print("Please enter a valid grade!")
+                try:
+                    choice = int(input(f"Which grade do you want to edit (enter an number between 1 and {len(grades)}): "))
+                except ValueError:
+                    continue
+                if 1 <= choice <= len(grades):
+                    break
+
+        while True:
+            try:
+                new_val = int(input("Enter the new grade: "))
+                break
+            except ValueError:
+                print("Please enter a whole number.")
+        grades[choice - 1] = new_val
+
+    print(grades)
+
+    print("Sorting and Reversing List")
+    grades.sort()
+    grades.reverse()
+    print(grades)
+
+    print("Getting Grade Total and Average")
+    total = sum(grades)
+    print(f"Total: {total}")
+    avg = (sum(grades) / len(grades)) if grades else 0
+    print(f"Average: {avg}")
+
+    print("Completed by, Rachael McConnell")
+
+if __name__ == "__main__":
+    main()
